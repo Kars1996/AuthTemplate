@@ -20,12 +20,14 @@
     "locomotive-aos": "latest",
     "motion": "latest",
     "next": "latest",
+    "next-auth": "^4.24.8",
     "next-nprogress-bar": "latest",
     "prisma": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-icons": "latest",
     "sass": "latest",
+    "stripe": "^17.2.1",
     "tailwind-merge": "latest"
   },
   "devDependencies": {

@@ -4,6 +4,8 @@ import "./globals.scss";
 import Body from "@/modules/Body/Body";
 import Console from "@/modules/Console/Console";
 import AOS from "@/lib/Aos/aos";
+import Footer from "@/components/pages/global/footer";
+import Header from "@/components/pages/global/header";
 
 /*
 Copyright © 2024 Kars (github.com/kars1996)
@@ -70,8 +72,9 @@ export default function RootLayout({
             <Body className={`${inter.className} __kars`}>
                 <main className="_kars">
                     <AOS />
+                    <Header />
                     {children}
-                    <p>Made By Kars ツ</p>
+                    <Footer />
                 </main>
                 <Console check={check} />
             </Body>

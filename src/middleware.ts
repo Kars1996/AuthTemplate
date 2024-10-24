@@ -1,3 +1,5 @@
+import { getToken } from "next-auth/jwt";
+import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 /*
@@ -7,24 +9,27 @@ Not to be shared, replicated or used without prior consent.
 Contact Kars for any enquiries
 */
 
-export function middleware(request: NextRequest) {
-    const currentUser = request.cookies.get("currentUser")?.value;
+export async function middleware(request: NextRequest) {
+    const token = await getToken({ req: request });
 
     if (
-        (currentUser && request.nextUrl.pathname.startsWith("/login")) ||
-        (currentUser && request.nextUrl.pathname.startsWith("/register"))
+        token &&
+        (request.nextUrl.pathname.startsWith("/login") ||
+            request.nextUrl.pathname.startsWith("/register"))
     ) {
-        return Response.redirect(new URL("/dash", request.url));
+        return NextResponse.redirect(new URL("/dash", request.url));
     }
 
-    if (!currentUser && request.nextUrl.pathname.startsWith("/dash")) {
-        return Response.redirect(
+    if (!token && request.nextUrl.pathname.startsWith("/dash")) {
+        return NextResponse.redirect(
             new URL(
                 `/login?redirect=${encodeURI(request.nextUrl.pathname)}`,
                 request.url,
             ),
         );
     }
+
+    return NextResponse.next();
 }
 
 export const config = {
